@@ -1,29 +1,33 @@
-#Ignore local .terraform directories
-.terraform
+# === Terraform ===
+# Local .terraform directories
+**/.terraform/*
+.terraform.tfstate*
 .terraform.lock.hcl
 
-#state sensitive files
+# Terraform state files
 *.tfstate
 *.tfstate.backup
-*.tfvars
-*.tfstate.*   
-# this rule above ignores every file with the tfstate extension
 
-#crash logs
-crash.logs
-.logs
+# Crash logs
+crash.log
 
-#override files
+# Override files (local-only configs)
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
 
-#Ignore sensitive variable files
-*.auto.tfvars
+# Sensitive local vars
 *.tfvars
-*.<YOUR_ENV>.tfvars
 *.tfvars.json
+terraform.tfvars
+
+# === Azure CLI ===
+# Azure auth cache
+.azure/
+
+# === VSCode ===
+.vscode/
 
 #Ignore provider keys
 *.pem
