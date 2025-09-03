@@ -7,7 +7,7 @@
 *.tfstate.backup
 *.tfvars
 *.tfstate.*   
-# this rule above ignores everz file with the tfstate extension
+# this rule above ignores every file with the tfstate extension
 
 #crash logs
 crash.logs
