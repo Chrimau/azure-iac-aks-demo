@@ -32,4 +32,4 @@ terraform.tfvars
 #Ignore provider keys
 *.pem
 *.key
-*.crt
+*.crtproviders.tf
