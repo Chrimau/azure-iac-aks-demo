@@ -32,4 +32,7 @@ terraform.tfvars
 #Ignore provider keys
 *.pem
 *.key
-*.crtproviders.tf
+*.crt
+
+#secrets
+providers.tf
