@@ -5,7 +5,7 @@ This repo provisions a minimal **Azure AKS** cluster with **VNet/Subnet + ACR** 
 
 > Stack: Azure (AKS, ACR, VNet/Subnet, Public IP), Terraform, kubectl, Helm (client), Azure CLI, Kubernetes (HPA/RBAC/PDB)
 
-  ▶️ ![Demo GIF](./docs/microservicesrunning-delete-ezgif.com-video-to-gif-converter.gif)
+  ▶️ ![Demo GIF](./media/microservicesrunning-delete-ezgif.com-video-to-gif-converter.gif)
 ---
 
 ## 1) What this shows (at a glance)
@@ -88,7 +88,7 @@ az aks get-credentials -g "$rg" -n "$aks" --overwrite-existing
 # Confirm cluster
 kubectl get nodes
 ```
-![Demo](./docs/pods-running.png)
+![Demo](./media/pods-running.png)
 
 >  If you hit a **quota** error, reduce the node size/count in `main.tf`like i did and autoscale later:
 
@@ -103,7 +103,7 @@ default_node_pool {
 
 I auto-scaled after by editing the above node pool section and increasing the node count. Also ensure your desired vm is available in your deployment region.
 ---
-![Demo](./docs/resources-2.png)
+![Demo](./media/resources-2.png)
 
 ## 5) Deploy the demo application
 
@@ -117,13 +117,13 @@ kubectl apply -f ./release/kubernetes-manifests.yaml
 kubectl get pods -w
 kubectl get svc frontend-external
 ```
-![Demo](./docs/azure-iac-aks-demo\pods-running.png)
+![Demo](./media/azure-iac-aks-demo\pods-running.png)
 
-![Demo](./docs/res-created-aks.png)
+![Demo](./media/res-created-aks.png)
 
 
 Watch the Demo!
-![Demo GIF](./docs/microservicesrunning-delete-ezgif.com-video-to-gif-converter.gif)
+![Demo GIF](./media//microservicesrunning-delete-ezgif.com-video-to-gif-converter.gif)
 
 
 
@@ -133,7 +133,7 @@ Copy the `EXTERNAL-IP` and open to see your frontend running:
 http://<EXTERNAL-IP-address>
 ```
 
-![Demo](./docs/site-demo.png)
+![Demo](./media/site-demo.png)
 
 **Optional:** Add an Azure DNS label on the LB service for a friendly URL:
 
@@ -200,7 +200,7 @@ kubectl autoscale deploy frontend-blue  --cpu-percent=60 --min=2 --max=4
 kubectl autoscale deploy frontend-green --cpu-percent=60 --min=2 --max=4
 kubectl get hpa
 ```
-![Demo](./docs/resources-2.png)
+![Demo](./media/resources-2.png)
 ---
 
 ## 7) Least-privilege RBAC (support read-only)
@@ -232,7 +232,7 @@ This defined role allows a support user to **get/list/watch** pods, pod logs, an
   kubectl get svc frontend -o yaml | grep -A3 selector
   kubectl get svc frontend-external -o yaml | grep -A3 selector
   ```
-![Demo](./docs/node-pool.png)
+![Demo](./media/node-pool.png)
 ---
 
 ## 9) CI/CD (suggested)
@@ -252,7 +252,7 @@ kubectl delete -f ./microservices-demo/release/kubernetes-manifests.yaml || true
 cd ../iac
 terraform destroy -auto-approve
 ```
-![Demo](./docs/res-deleted-aks.png)
+![Demo](./media/res-deleted-aks.png)
 
 ---
 
@@ -264,9 +264,9 @@ terraform destroy -auto-approve
 * Use **AcrPull** role assignment for AKS kubelet identity to pull from ACR.
 
 Watch the Demo!
-![Demo GIF](./docs/git-repo-aks-ezgif.com-video-to-gif-converter.gif)
+![Demo GIF](./media/git-repo-aks-ezgif.com-video-to-gif-converter.gif)
 
-![Demo GIF](./docs/rem-cached-version-rec-ezgif.com-video-to-gif-converter.gif)
+![Demo GIF](./media/rem-cached-version-rec-ezgif.com-video-to-gif-converter.gif)
 ---
 
 ## 14) Troubleshooting
