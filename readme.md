@@ -5,7 +5,7 @@ This repo provisions a minimal **Azure AKS** cluster with **VNet/Subnet + ACR** 
 
 > Stack: Azure (AKS, ACR, VNet/Subnet, Public IP), Terraform, kubectl, Helm (client), Azure CLI, Kubernetes (HPA/RBAC/PDB)
 
-  ▶️ ![Demo GIF](https://raw.githubusercontent.com/Chrimau/azure-iac-aks-demo/blob/main/docs/microservicesrunning-delete-ezgif.com-video-to-gif-converter.gif)
+  ▶️ ![Demo GIF](./docs/microservicesrunning-delete-ezgif.com-video-to-gif-converter.gif)
 ---
 
 ## 1) What this shows (at a glance)
@@ -22,19 +22,29 @@ This repo provisions a minimal **Azure AKS** cluster with **VNet/Subnet + ACR** 
 ```
 
 aks-oms/
+├─ media/                     # Media files
+│  ├─ xxxxx.gif
+│  ├─ xxxxx.gif
+│  ├─ xxxxx.gif
+│  ├─ xxxxx.png
+│  └─ xxxxx.png
+│  └─ xxxxx.png
+│  └─ xxxxx.png
+│  └─ xxxxx.png
+│  └─ xxxxx.png
+│  └─ xxxxx.png
+│  └─ xxxxx.png
 ├─ iac/                     # Terraform (AKS, VNet/Subnet, ACR, roles)
-│  ├─ main.tf
-│  ├─ variables.tf
-│  ├─ outputs.tf
-│  ├─ providers.tf
 │  └─ .gitignore
-├─ k8s/                     # Optional: RBAC/PDB/HPA patches & blue/green variants
-│  ├─ role-support-read.yaml
-│  ├─ rolebinding-support-read.yaml
+│  ├─ main.tf
+│  ├─ providers.tf
+│  ├─ outputs.tf
+│  ├─ variables.tf
+├─ k8s/                     # RBAC/PDB/HPA patches & blue/green variants
+│  ├─ anti-frontend.yaml 
 │  ├─ pdb-frontend.yaml
-│  ├─ anti-frontend.yaml
-│  ├─ frontend-blue.yaml
-│  └─ frontend-green.yaml
+│  ├─ rolebinding-support-read.yaml
+│  ├─ role-support-read.yaml
 └─ README.md
 
 ````
@@ -52,10 +62,10 @@ terraform version
 kubectl version --client
 helm version
 ````
-otherwise install them, I recommend using [chocolatey](https://chocolatey.org/install)
+Install anz missing tool, I recommend using [chocolatey](https://chocolatey.org/install)
 ---
 
-## 4) Quick start (provision)
+## 4) provision zour infrastructure
 
 ```bash
 # Login and select your subscription
@@ -78,8 +88,9 @@ az aks get-credentials -g "$rg" -n "$aks" --overwrite-existing
 # Confirm cluster
 kubectl get nodes
 ```
+![Demo](./docs/pods-running.png)
 
->  If you hit a **quota** error, reduce the node size/count in `main.tf`like i did:
+>  If you hit a **quota** error, reduce the node size/count in `main.tf`like i did and autoscale later:
 
 ```hcl
 default_node_pool {
@@ -89,7 +100,8 @@ default_node_pool {
   vnet_subnet_id = azurerm_subnet.aks.id
 }
 ```
-I auto-scaled after bz editing the above node pool section and increasing the node count. Also ensure your desired vm is available in your deployment region.
+
+I auto-scaled after by editing the above node pool section and increasing the node count. Also ensure your desired vm is available in your deployment region.
 ---
 ![Demo](./docs/resources-2.png)
 
@@ -111,7 +123,7 @@ kubectl get svc frontend-external
 
 
 Watch the Demo!
-![Demo GIF](https://raw.githubusercontent.com/Chrimau/azure-iac-aks-demo/blob/main/docs/microservicesrunning-delete-ezgif.com-video-to-gif-converter.gif)
+![Demo GIF](./docs/microservicesrunning-delete-ezgif.com-video-to-gif-converter.gif)
 
 
 
@@ -174,21 +186,21 @@ kubectl patch svc frontend           -p '{"spec":{"selector":{"app":"frontend","
 kubectl patch svc frontend-external  -p '{"spec":{"selector":{"app":"frontend","version":"green"}}}'
 ```
 
-**Anti-affinity & PDB (optional, recommended):**
+**Anti-affinity & PDB:**
 
 ```bash
 kubectl apply -f k8s/anti-frontend.yaml
 kubectl apply -f k8s/pdb-frontend.yaml
 ```
 
-**HPA (example):**
+**HPA:**
 
 ```bash
 kubectl autoscale deploy frontend-blue  --cpu-percent=60 --min=2 --max=4
 kubectl autoscale deploy frontend-green --cpu-percent=60 --min=2 --max=4
 kubectl get hpa
 ```
-
+![Demo](./docs/resources-2.png)
 ---
 
 ## 7) Least-privilege RBAC (support read-only)
@@ -220,7 +232,7 @@ This defined role allows a support user to **get/list/watch** pods, pod logs, an
   kubectl get svc frontend -o yaml | grep -A3 selector
   kubectl get svc frontend-external -o yaml | grep -A3 selector
   ```
-
+![Demo](./docs/node-pool.png)
 ---
 
 ## 9) CI/CD (suggested)
@@ -252,9 +264,9 @@ terraform destroy -auto-approve
 * Use **AcrPull** role assignment for AKS kubelet identity to pull from ACR.
 
 Watch the Demo!
-![Demo GIF](https://raw.githubusercontent.com/Chrimau/azure-iac-aks-demo/blob/main/docs/git-repo-aks-ezgif.com-video-to-gif-converter.gif)
+![Demo GIF](./docs/git-repo-aks-ezgif.com-video-to-gif-converter.gif)
 
-![Demo GIF](https://raw.githubusercontent.com/Chrimau/azure-iac-aks-demo/blob/main/docs/rem-cached-version-rec-ezgif.com-video-to-gif-converter.gif)
+![Demo GIF](./docs/rem-cached-version-rec-ezgif.com-video-to-gif-converter.gif)
 ---
 
 ## 14) Troubleshooting
