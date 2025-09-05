@@ -62,7 +62,7 @@ terraform version
 kubectl version --client
 helm version
 ````
-Install anz missing tool, I recommend using [chocolatey](https://chocolatey.org/install)
+Install any missing tool, I recommend using [chocolatey](https://chocolatey.org/install)
 ---
 
 ## 4) provision zour infrastructure
@@ -122,7 +122,8 @@ kubectl get svc frontend-external
 ![Demo](./media/res-created-aks.png)
 
 
-Watch the Demo!
+# Watch the Demo!
+
 ![Demo GIF](./media//microservicesrunning-delete-ezgif.com-video-to-gif-converter.gif)
 
 
