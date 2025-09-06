@@ -122,7 +122,7 @@ kubectl get svc frontend-external
 ![Demo](./media/res-created-aks.png)
 
 
-Watch the Demo!
+**Watch the Demo!**
 
 ![Demo GIF](./media//microservicesrunning-delete-ezgif.com-video-to-gif-converter.gif)
 
